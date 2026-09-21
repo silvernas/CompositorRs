@@ -1,6 +1,6 @@
 # Compositor（Windows 版）
 
-Compositor 是一款免费、开源的 Photoshop 风格图像编辑器。本仓库是使用 **Rust + egui (eframe)** 编写的 **Windows 原生**移植版，源项目是Compositor by robbietilton的MacOS版本，出于在Windows平台使用的考虑，而有次项目。共享相同的产品目标：围绕合成与后期处理工作流，提供制作像素级精确成品图像所需的工具。
+Compositor 是一款免费、开源的 Photoshop 风格图像编辑器。本仓库是使用 **Rust + egui (eframe)** 编写的 **Windows 原生**移植版，源项目是Compositor 为robbietilton使用swift实现的基于MacOS平台运行版本，出于在Windows平台使用的考虑而创建了本项目。和源项目一样：围绕合成与后期处理工作流，提供制作像素级精确成品图像所需的工具。
 
 当前版本为 **0.1.0**，界面为简体中文，深色主题。全部像素处理在 CPU 上完成（rayon 并行），复用 8 个 C 像素内核（通过 FFI 调用），不依赖 GPU。
 
