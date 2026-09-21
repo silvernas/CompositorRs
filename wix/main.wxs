@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Compositor — WiX 安装清单 (cargo-wix)
+  使用方式（需先安装 WiX 工具集）:
+    winget install --id WiXToolset.WiXToolset.31
+    cargo install cargo-wix
+    cargo wix            # 产物: target/wix/compositor-<版本>-x86_64.msi
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="Compositor" Language="1033" Version="0.1.0"
+             Manufacturer="Compositor" UpgradeCode="8F3C9E4A-5B2D-4C1E-9A6F-2D7B4E8C1A5B">
+        <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine"
+                 Description="Compositor — 免费开源的 Photoshop 风格图像编辑器" />
+        <MajorUpgrade DowngradeErrorMessage="已安装更新版本的 [ProductName]，请先卸载后再安装。"
+                      Schedule="afterInstallInitialize" />
+        <MediaTemplate EmbedCab="yes" />
+        <Feature Id="ProductFeature" Title="Compositor" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+        </Feature>
+        <Icon Id="AppIcon" SourceFile="assets/compositor.ico" />
+        <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+        <UIRef Id="WixUI_Minimal" />
+    </Product>
+
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFiles64Folder">
+                <Directory Id="INSTALLFOLDER" Name="Compositor" />
+            </Directory>
+        </Directory>
+    </Fragment>
+
+    <Fragment>
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <Component Id="MainExecutable" Guid="*">
+                <File Id="CompositorExe" Name="compositor.exe"
+                      Source="$(var.CargoTargetBinDir)/compositor.exe" KeyPath="yes" />
+            </Component>
+            <Component Id="AppIcon" Guid="*">
+                <File Id="CompositorIco" Name="compositor.ico"
+                      Source="assets/compositor.ico" KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>

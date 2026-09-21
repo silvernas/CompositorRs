@@ -1,0 +1,37 @@
+[package]
+name = "compositor"
+version = "0.1.0"
+edition = "2021"
+description = "Compositor — a free, open-source Photoshop-style image editor (Windows port)"
+license = "MIT"
+
+[lib]
+name = "compositor"
+path = "src/lib.rs"
+
+[[bin]]
+name = "compositor"
+path = "src/main.rs"
+
+[features]
+default = []
+# HEIC/HEIF import via libheif (requires the system libheif library at build
+# and run time). Enable with: cargo build --features heic
+heic = ["dep:libheif-rs"]
+
+[dependencies]
+ab_glyph = "0.2"
+eframe = "0.29"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "tiff"] }
+libheif-rs = { version = "2.7", optional = true }
+rayon = "1.10"
+rfd = "0.15"
+libc = "0.2"
+
+[build-dependencies]
+cc = "1"
+winres = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = true
